@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Postularse</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<main class="container">
+    <div class="card">
+        <h1>Subir CV</h1>
+        <form th:action="@{/solicitudes/enviar}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="vacanteId" th:value="${vacante.id}"/>
+            <label>Selecciona tu PDF:</label>
+            <input type="file" name="cvFile" accept=".pdf" required/>
+            <button type="submit" class="btn btn-primary">Enviar Postulación</button>
+        </form>
+    </div>
+</main>
+</body>
+</html>

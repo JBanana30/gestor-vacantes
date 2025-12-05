@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Verificación</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<main class="container" style="text-align:center; padding-top: 50px;">
+    <div class="card">
+        <h1 th:if="${successMessage}" style="color:green;">¡Cuenta Verificada!</h1>
+        <h1 th:if="${errorMessage}" style="color:red;">Error de Verificación</h1>
+
+        <p th:if="${successMessage}" th:text="${successMessage}"></p>
+        <p th:if="${errorMessage}" th:text="${errorMessage}"></p>
+
+        <a th:href="@{/login}" class="btn btn-primary" style="width: auto; margin-top: 20px;">Ir a Iniciar Sesión</a>
+    </div>
+</main>
+</body>
+</html>

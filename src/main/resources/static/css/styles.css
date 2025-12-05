@@ -1,0 +1,225 @@
+/* === VARIABLES GLOBALES === */
+:root {
+    --primary-color: #0056b3;
+    --primary-hover-color: #004494;
+    --danger-color: #dc3545;
+    --danger-hover-color: #c82333;
+    --success-color: #28a745;
+    --light-gray-color: #B5C9FF;
+    --border-color: #dee2e6;
+    --text-color: #212529;
+    --card-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--light-gray-color);
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.container { max-width: 960px; margin: 20px auto; padding: 20px; }
+
+/* === NAVBAR === */
+.navbar {
+    background-color: #fff;
+    padding: 1rem 2rem;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar-brand { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); text-decoration: none; }
+.navbar-links a, .navbar-links button {
+    /* Hacemos que parezcan botones */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1rem;
+    padding: 0.5rem 1.2rem; /* Espacio interno */
+
+    /* Estilo visual */
+    background-color: transparent;
+    border: 2px solid var(--primary-color); /* Borde azul */
+    border-radius: 50px; /* Bordes muy redondeados (tipo píldora) */
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease; /* Suaviza la animación */
+    cursor: pointer;
+}
+
+/* Efecto Hover (al pasar el mouse) */
+.navbar-links a:hover, .navbar-links button:hover {
+    background-color: var(--primary-color); /* Se rellena de azul */
+    color: #fff; /* Texto blanco */
+    transform: translateY(-2px); /* Se eleva un poco */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Sombra suave */
+    text-decoration: none;
+}
+
+/* Separación para los iconos dentro del botón */
+.navbar-links a i, .navbar-links button i {
+    margin-right: 8px;
+}
+/* === TARJETAS Y GRID === */
+.card {
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,0.15); }
+
+.vacancies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+.vacancies-grid .card { margin-bottom: 0; height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
+
+/* Estados de Vacante (Borde de color) */
+.card-state-open { border-left: 5px solid var(--success-color); }
+.card-state-closed { border-left: 5px solid var(--danger-color); opacity: 0.8; }
+
+/* === BOTONES Y FORMULARIOS === */
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+}
+.btn-primary { background-color: var(--primary-color); }
+.btn-primary:hover { background-color: var(--primary-hover-color); }
+.btn-danger { background-color: var(--danger-color); }
+.btn-danger:hover { background-color: var(--danger-hover-color); }
+
+input, select, textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+}
+.input-group { position: relative; margin-bottom: 1rem; }
+.input-group i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #aaa; }
+.input-group input { padding-left: 40px !important; margin-bottom: 0; }
+
+/* === BADGES DE ESTADO === */
+.status-badge { padding: 0.25em 0.6em; font-size: 0.8rem; font-weight: bold; border-radius: 12px; text-transform: uppercase; }
+.status-aceptada, .status-confirmada { color: #155724; background-color: #d4edda; border: 1px solid #c3e6cb; }
+.status-pendiente { color: #856404; background-color: #fff3cd; border: 1px solid #ffeeba; }
+.status-rechazada { color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; }
+.status-otro { color: #495057; background-color: #e9ecef; border: 1px solid #dee2e6; }
+
+/* === LOGIN/REGISTRO (SPLIT CARD) === */
+.auth-container { display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+.split-container {
+    display: grid; grid-template-columns: 45% 55%; width: 100%; max-width: 900px;
+    background-color: #fff; border-radius: 10px; box-shadow: var(--card-shadow); overflow: hidden;
+}
+.form-panel { padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
+.overlay-panel {
+    background: linear-gradient(to right, var(--primary-hover-color), var(--primary-color));
+    color: #fff; padding: 3rem; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+}
+.btn-ghost { background: transparent; border: 2px solid #fff; color: #fff; width: auto; padding: 0.75rem 2rem; }
+.btn-ghost:hover { background: #fff; color: var(--primary-color); }
+
+.role-selector { display: flex; border: 1px solid var(--border-color); border-radius: 4px; overflow: hidden; margin-bottom: 1.5rem; }
+.role-selector input { display: none; }
+.role-selector label { flex: 1; padding: 0.75rem; text-align: center; cursor: pointer; background: #fff; color: var(--primary-color); font-weight: 600; }
+.role-selector input:checked + label { background: var(--primary-color); color: #fff; }
+
+/* === PERFIL === */
+.profile-header { text-align: center; border-bottom: 2px solid var(--border-color); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
+.profile-icon { font-size: 6rem; color: var(--primary-color); margin-bottom: 1rem; }
+.profile-details li { display: flex; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--border-color); }
+.profile-details li i { font-size: 1.5rem; color: var(--primary-color); margin-right: 1.5rem; width: 30px; text-align: center; }
+
+/* === TABLAS === */
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; background: #fff; }
+th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-color); }
+th { background-color: var(--primary-color); color: #fff; }
+
+/* === HERO SECTION (El título grande) === */
+.hero-section {
+    text-align: center;
+    padding: 4rem 1rem;
+    background-color: #fff; /* Fondo blanco limpio */
+}
+
+.hero-title {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    font-weight: 800; /* Letra muy gruesa */
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    color: #6c757d;
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto; /* Centrado horizontal */
+}
+
+/* === BARRA DE BÚSQUEDA Y FILTROS === */
+.search-section {
+    background-color: #f3f4f6; /* Gris muy claro, como en la imagen */
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 3rem;
+}
+
+.search-section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.search-form {
+    display: grid;
+    /* 3 columnas que se adaptan: Término, Categoría, Salario */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 1.5rem;
+    align-items: end; /* Alinea el botón con los inputs */
+}
+
+.search-form label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: #4b5563;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.search-form input, .search-form select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    background-color: #fff;
+    margin-bottom: 0; /* Quitamos margen inferior por el grid */
+}
+
+.search-form button {
+    height: 48px; /* Altura para igualar a los inputs */
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 1px;
+}

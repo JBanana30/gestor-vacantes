@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Empleador</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+<nav class="navbar">
+    <a th:href="@{/}" class="navbar-brand"><i class="fas fa-briefcase"></i> Bolsa de Trabajo</a>
+    <div class="navbar-links">
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+            <button type="submit" style="cursor:pointer; background-color: var(--danger-color); border-color: var(--danger-color); color: white; padding: 0.5rem 1rem; border-radius: 4px;">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </button>
+        </form>
+    </div>
+</nav>
+
+<main class="container">
+    <div class="card">
+        <h1><i class="fas fa-user-shield"></i> Panel de Empleador</h1>
+
+        <div style="margin-bottom: 2rem;">
+            <p style="color: #666; margin-bottom: 10px;">Gestiona tus vacantes y revisa a los candidatos.</p>
+            <a th:href="@{/vacantes/nueva}" class="btn btn-primary" style="width: auto; display: inline-flex; align-items: center;">
+                <i class="fas fa-plus-circle"></i> Publicar Nueva Vacante
+            </a>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 2rem;">
+
+        <h2><i class="fas fa-list-alt"></i> Mis Vacantes Publicadas</h2>
+
+        <div th:if="${vacantes.isEmpty()}" style="text-align: center; padding: 2rem; color: #888;">
+            <i class="far fa-folder-open" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+            <p>Aún no has publicado ninguna vacante.</p>
+        </div>
+
+        <div class="vacancies-grid" th:unless="${vacantes.isEmpty()}">
+            <div th:each="vacante : ${vacantes}"
+                 class="card"
+                 th:classappend="${vacante.estado.name() == 'CERRADA'} ? 'card-state-closed' : 'card-state-open'">
+
+                <div>
+                    <h3 th:text="${vacante.titulo}" style="margin-top: 0; color: #333;"></h3>
+                    <p style="margin-bottom: 0.5rem; color: #666;">
+                        <i class="fas fa-map-marker-alt" style="width: 20px; text-align: center;"></i>
+                        <span th:text="${vacante.ubicacion}"></span>
+                    </p>
+                    <p th:if="${vacante.estado.name() != 'CERRADA'}" style="color: #28a745; font-weight: bold;">
+                        <i class="fas fa-check-circle" style="width: 20px; text-align: center;"></i> Publicada
+                    </p>
+                    <p th:if="${vacante.estado.name() == 'CERRADA'}" style="color: #dc3545; font-weight: bold;">
+                        <i class="fas fa-lock" style="width: 20px; text-align: center;"></i> Cerrada
+                    </p>
+                </div>
+
+                <div style="display: flex; gap: 8px; margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px;">
+
+                    <a th:href="@{/vacantes/editar/{id}(id=${vacante.id})}"
+                       class="btn"
+                       style="background-color: #6c757d; color: white; flex: 1; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; padding: 0.5rem;">
+                        <i class="fas fa-edit" style="margin-right: 5px;"></i> Editar
+                    </a>
+
+                    <a th:href="@{/vacantes/{id}/aspirantes(id=${vacante.id})}"
+                       class="btn btn-primary"
+                       style="flex: 1; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; padding: 0.5rem;">
+                        <i class="fas fa-users" style="margin-right: 5px;"></i> Aspirantes
+                    </a>
+
+                    <form th:action="@{/vacantes/eliminar/{id}(id=${vacante.id})}" method="post"
+                          onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta vacante de forma permanente?');"
+                          style="margin: 0;">
+                        <button type="submit" class="btn btn-danger"
+                                style="height: 100%; padding: 0.5rem 0.8rem; display: flex; align-items: center; justify-content: center;"
+                                title="Eliminar Vacante">
+                            <i class="fas fa-trash-alt" style="margin: 0;"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

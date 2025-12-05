@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Aspirantes</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<nav class="navbar"><a th:href="@{/home}" class="navbar-brand">Volver al Panel</a></nav>
+<main class="container">
+    <h1 th:text="'Aspirantes: ' + ${vacante.titulo}"></h1>
+
+    <div th:if="${vacante.estado.name() != 'CERRADA'}">
+        <form th:action="@{/solicitudes/vacante/cerrar/{id}(id=${vacante.id})}" method="post" onsubmit="return confirm('¿Cerrar y rechazar pendientes?');">
+            <button type="submit" class="btn btn-danger" style="width:auto;">Cerrar Vacante</button>
+        </form>
+    </div>
+
+    <table>
+        <thead><tr><th>Nombre</th><th>Correo</th><th>CV</th><th>Estado</th><th>Acciones</th></tr></thead>
+        <tbody>
+        <tr th:each="sol : ${solicitudes}">
+            <td th:text="${sol.aspirante.nombre}"></td>
+            <td th:text="${sol.aspirante.correo}"></td>
+            <td><a th:href="@{/uploads/{f}(f=${sol.cvAdjunto})}" target="_blank">Ver PDF</a></td>
+            <td th:switch="${sol.estado.name()}">
+                <span th:case="'ACEPTADA'" class="status-badge status-aceptada">Aceptada</span>
+                <span th:case="'RECHAZADA'" class="status-badge status-rechazada">Rechazada</span>
+                <span th:case="'PENDIENTE'" class="status-badge status-pendiente">Pendiente</span>
+                <span th:case="*" th:text="${sol.estado}"></span>
+            </td>
+            <td>
+                <div th:if="${vacante.estado.name() != 'CERRADA' and sol.estado.name() == 'PENDIENTE'}">
+                    <form th:action="@{/solicitudes/aceptar/{id}(id=${sol.id})}" method="post" style="display:inline;"><button style="color:green;">Aceptar</button></form>
+                    <form th:action="@{/solicitudes/rechazar/{id}(id=${sol.id})}" method="post" style="display:inline;"><button style="color:red;">Rechazar</button></form>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+<nav class="navbar"><a th:href="@{/}" class="navbar-brand">Mi Panel</a></nav>
+<div class="auth-container">
+    <div class="split-container">
+        <div class="form-panel">
+            <h1 style="text-align: center;">Crear Cuenta</h1>
+            <div class="role-selector">
+                <input type="radio" id="asp" name="tipoUsuario" value="aspirante" checked onchange="mostrar('aspirante')"><label for="asp">Aspirante</label>
+                <input type="radio" id="emp" name="tipoUsuario" value="empleador" onchange="mostrar('empleador')"><label for="emp">Empleador</label>
+            </div>
+            <div id="form-aspirante">
+                <form th:action="@{/registro/aspirante}" method="post">
+                    <div class="input-group"><i class="fas fa-user"></i><input type="text" name="nombre" placeholder="Nombre" required/></div>
+                    <div class="input-group"><i class="fas fa-envelope"></i><input type="email" name="correo" placeholder="Correo" required/></div>
+                    <div class="input-group"><i class="fas fa-key"></i><input type="password" name="contrasena" placeholder="Contraseña" required/></div>
+                    <div class="input-group"><i class="fas fa-code"></i><input type="text" name="habilidades" placeholder="Habilidades"/></div>
+                    <button type="submit" class="btn btn-primary">Registrarme</button>
+                </form>
+            </div>
+            <div id="form-empleador" style="display:none;">
+                <form th:action="@{/registro/empleador}" method="post">
+                    <div class="input-group"><i class="fas fa-user"></i><input type="text" name="nombre" placeholder="Nombre Reclutador" required/></div>
+                    <div class="input-group"><i class="fas fa-envelope"></i><input type="email" name="correo" placeholder="Correo" required/></div>
+                    <div class="input-group"><i class="fas fa-key"></i><input type="password" name="contrasena" placeholder="Contraseña" required/></div>
+                    <div class="input-group"><i class="fas fa-building"></i><input type="text" name="empresa" placeholder="Empresa" required/></div>
+                    <button type="submit" class="btn btn-primary">Registrarme</button>
+                </form>
+            </div>
+        </div>
+        <div class="overlay-panel">
+            <h1>Bienvenido</h1>
+            <p>¿Ya tienes cuenta?</p>
+            <a th:href="@{/login}" class="btn btn-ghost">Iniciar Sesión</a>
+        </div>
+    </div>
+</div>
+<script>function mostrar(t){document.getElementById('form-aspirante').style.display=(t==='aspirante')?'block':'none';document.getElementById('form-empleador').style.display=(t==='empleador')?'block':'none';}</script>
+</body>
+</html>

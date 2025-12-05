@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Perfil</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+<nav class="navbar">
+    <a th:href="@{/}" class="navbar-brand"><i class="fas fa-briefcase"></i> Bolsa de Trabajo</a>
+    <div class="navbar-links">
+        <a th:href="@{/solicitudes/mis-postulaciones}"><i class="fas fa-file-alt"></i> Mis Postulaciones</a>
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+            <button type="submit" style="cursor:pointer;"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+        </form>
+    </div>
+</nav>
+
+<main class="container">
+    <div class="card profile-card">
+
+        <div class="profile-header">
+            <i class="fas fa-user-circle profile-icon"></i>
+            <h1 th:text="${aspirante.nombre}" style="margin-bottom: 0.2rem;">Nombre del Aspirante</h1>
+            <p class="profile-email" style="color: #6c757d;">
+                <i class="fas fa-envelope" style="margin-right: 5px;"></i> <span th:text="${aspirante.correo}"></span>
+            </p>
+        </div>
+
+        <div style="padding: 1rem 0; border-bottom: 1px solid #eee; display: flex; align-items: center;">
+            <i class="fas fa-id-card" style="font-size: 1.5rem; color: var(--primary-color); width: 40px; text-align: center; margin-right: 1rem;"></i>
+            <div>
+                <span style="font-size: 0.8rem; color: #888; text-transform: uppercase; font-weight: bold; display: block;">ID de Usuario</span>
+                <span th:text="${aspirante.id}" style="font-size: 1.1rem; font-weight: 500;"></span>
+            </div>
+        </div>
+
+        <div style="margin-top: 2rem;">
+            <p style="color: #6c757d; font-size: 0.9rem; margin-bottom: 0.8rem; text-transform: uppercase; font-weight: bold; display: flex; align-items: center;">
+                <i class="fas fa-laptop-code" style="margin-right: 8px;"></i> Habilidades Técnicas
+            </p>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; background-color: #f8f9fa; padding: 1.2rem; border-radius: 8px; border: 1px solid #dee2e6;">
+                <span th:text="${aspirante.habilidades}" style="font-size: 1.1rem; color: #333; font-weight: 500;">Java, Spring, SQL</span>
+
+                <a href="#" class="btn" style="width: auto; background-color: white; color: var(--primary-color); border: 1px solid var(--primary-color); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; transition: all 0.2s;">
+                    <i class="fas fa-pencil-alt" style="margin-right: 5px;"></i> Editar
+                </a>
+            </div>
+        </div>
+
+        <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #eee;">
+
+        <div style="text-align: center;">
+            <a th:href="@{/}" class="btn btn-primary" style="width: auto; padding-left: 2rem; padding-right: 2rem;">
+                <i class="fas fa-arrow-left"></i> Volver al Tablero
+            </a>
+        </div>
+    </div>
+</main>
+</body>
+</html>

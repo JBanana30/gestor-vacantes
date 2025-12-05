@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+<nav class="navbar"><a th:href="@{/}" class="navbar-brand">Mi Panel</a></nav>
+<div class="auth-container">
+    <div class="split-container">
+        <div class="overlay-panel">
+            <h1>¡Hola!</h1>
+            <p>¿No tienes cuenta? Regístrate y encuentra tu empleo ideal.</p>
+            <a th:href="@{/registro}" class="btn btn-ghost">Registrarse</a>
+        </div>
+        <div class="form-panel">
+            <h1 style="text-align: center;">Iniciar Sesión</h1>
+            <div th:if="${successMessage}" class="alert status-aceptada" th:text="${successMessage}" style="margin-bottom:1rem; padding:1rem;"></div>
+            <div th:if="${param.error}" style="color:red; margin-bottom:1rem;">Credenciales incorrectas.</div>
+            <form th:action="@{/login}" method="post">
+                <div class="input-group"><i class="fas fa-envelope"></i><input type="text" name="username" placeholder="Correo" required autofocus/></div>
+                <div class="input-group"><i class="fas fa-key"></i><input type="password" name="password" placeholder="Contraseña" required/></div>
+                <button type="submit" class="btn btn-primary">Entrar</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

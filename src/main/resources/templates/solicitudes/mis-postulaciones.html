@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Postulaciones</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<nav class="navbar"><a th:href="@{/}" class="navbar-brand">Inicio</a></nav>
+<main class="container">
+    <h1>Historial de Postulaciones</h1>
+    <div th:if="${successMessage}" class="alert status-aceptada" th:text="${successMessage}"></div>
+    <table>
+        <thead><tr><th>Vacante</th><th>Empresa</th><th>Fecha</th><th>Estado</th></tr></thead>
+        <tbody>
+        <tr th:each="sol : ${solicitudes}">
+            <td th:text="${sol.vacante.titulo}"></td>
+            <td th:text="${sol.vacante.empleador.empresa}"></td>
+            <td th:text="${sol.fechaSolicitud}"></td>
+            <td th:switch="${sol.estado.name()}">
+                <span th:case="'ACEPTADA'" class="status-badge status-aceptada">Aceptada</span>
+                <span th:case="'CONFIRMADA'" class="status-badge status-aceptada">Confirmada</span>
+                <span th:case="'RECHAZADA'" class="status-badge status-rechazada">Rechazada</span>
+                <span th:case="'PENDIENTE'" class="status-badge status-pendiente">Pendiente</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

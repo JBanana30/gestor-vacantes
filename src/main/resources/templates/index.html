@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Bolsa de Trabajo</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a th:href="@{/}" class="navbar-brand"><i class="fas fa-code"></i> Bolsa de Trabajo</a>
+        <div class="navbar-links" sec:authorize="!isAuthenticated()">
+            <a th:href="@{/login}">Iniciar Sesión</a>
+            <a th:href="@{/registro}">Crear Cuenta</a>
+        </div>
+        <div class="navbar-links" sec:authorize="hasRole('ASPIRANTE')">
+            <a th:href="@{/perfil/mi-informacion}">Mi Perfil</a>
+            <a th:href="@{/solicitudes/mis-postulaciones}">Mis Postulaciones</a>
+            <form th:action="@{/logout}" method="post" style="display:inline;"><button type="submit">Cerrar Sesión</button></form>
+        </div>
+        <div class="navbar-links" sec:authorize="hasRole('EMPLEADOR')">
+            <a th:href="@{/home}">Mi Panel</a>
+            <form th:action="@{/logout}" method="post" style="display:inline;"><button type="submit">Cerrar Sesión</button></form>
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <h1 class="hero-title">Encuentra un trabajo</h1>
+        <p class="hero-subtitle">
+            Encuentra el trabajo de tus sueños en una empresa internacional; tenemos vacantes para front end developer, backend, devops, mobile y mucho más!
+        </p>
+    </div>
+
+    <main class="container">
+        
+        <div th:if="${successMessage}" class="alert status-aceptada" th:text="${successMessage}"></div>
+
+        <div class="search-section">
+            <h2>Buscar y Filtrar Vacantes</h2>
+            <form action="/" method="get" class="search-form">
+                <div>
+                    <label>Término de Búsqueda</label>
+                    <input type="text" name="keyword" placeholder="Ej. Java, Laravel, Senior...">
+                </div>
+                <div>
+                    <label>Categoría</label>
+                    <select name="categoria">
+                        <option value="">-- Seleccione --</option>
+                        <option value="TIEMPO_COMPLETO">Tiempo Completo</option>
+                        <option value="MEDIO_TIEMPO">Medio Tiempo</option>
+                        <option value="FREELANCE">Freelance</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Salario</label>
+                    <select name="salario">
+                        <option value="">-- Seleccione --</option>
+                        <option value="10000">$10,000 - $20,000</option>
+                        <option value="20000">$20,000 - $30,000</option>
+                        <option value="30000">$30,000 - $50,000</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Buscar Vacantes</button>
+            </form>
+        </div>
+
+        <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Nuestras Vacantes Disponibles</h2>
+
+        <div th:if="${vacantes.isEmpty()}">
+            <div class="card"><p>No hay vacantes disponibles por el momento.</p></div>
+        </div>
+
+        <div class="vacancies-grid" th:unless="${vacantes.isEmpty()}">
+            <div class="card" th:each="vacante : ${vacantes}">
+                <h3><a th:href="@{/vacantes/{id}(id=${vacante.id})}" th:text="${vacante.titulo}"></a></h3>
+                <p style="font-size: 0.9rem; margin-bottom: 0.5rem; color: #666;">
+                    <i class="far fa-building"></i> <span th:text="${vacante.empleador.empresa}"></span>
+                </p>
+                <p style="font-size: 0.9rem; margin-bottom: 1rem; color: #666;">
+                    <i class="fas fa-map-marker-alt"></i> <span th:text="${vacante.ubicacion}"></span>
+                    | <span th:text="${vacante.tipoTrabajo}"></span>
+                </p>
+                <a th:href="@{/vacantes/{id}(id=${vacante.id})}" class="btn btn-primary" style="font-size: 0.9rem;">Ver Vacante</a>
+            </div>
+        </div>
+
+    </main>
+</body>
+</html>

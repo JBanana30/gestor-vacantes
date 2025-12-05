@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<nav class="navbar"><a th:href="@{/}" class="navbar-brand">Bolsa de Trabajo</a></nav>
+<main class="container">
+    <div class="card">
+        <h1 th:text="${vacante.titulo}"></h1>
+        <p><strong>Empresa:</strong> <span th:text="${vacante.empleador.empresa}"></span></p>
+        <p th:text="${vacante.descripcion}"></p>
+        <h3>Requisitos</h3>
+        <p th:text="${vacante.requisitos}"></p>
+        <div sec:authorize="hasRole('ASPIRANTE')">
+            <a th:href="@{/solicitudes/postular/{id}(id=${vacante.id})}" class="btn btn-primary" style="width:auto;">Postularme</a>
+        </div>
+    </div>
+</main>
+</body>
+</html>
